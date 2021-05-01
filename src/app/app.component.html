@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top mb-5">
+  <div class="container">
+      <a class="navbar-brand" href="#!">ABC Company</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+              <!--<li class="nav-item active">
+                  <a class="nav-link" href="#!">
+                      Home
+                      <span class="sr-only">(current)</span>
+                  </a>
+              </li>
+            -->
+              <li class="nav-item active"><a class="nav-link"  routerLink="/user-profile" *ngIf="isLoggedin">Profile</a></li>
+              <li class="nav-item"><a class="nav-link"  *ngIf="!isLoggedin" routerLink="/signin">Log in</a></li>
+              <li class="nav-item"><a class="nav-link"  *ngIf="!isLoggedin" routerLink="/signup">Sign up</a></li>
+              <li class="nav-item"><button class="btn btn-danger" (click)="logOut()" *ngIf="isLoggedin">Sign-out</button></li>
+          </ul>
+      </div>
+  </div>
+</nav>
+
+<div class="container">
+<router-outlet></router-outlet>
+</div>

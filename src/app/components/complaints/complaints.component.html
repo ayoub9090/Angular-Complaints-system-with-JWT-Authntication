@@ -1,0 +1,82 @@
+
+<div class="container">
+<div class="row">
+<div class="col-6">
+  <h2 class="mb-3">Complaints</h2>
+</div>
+<div class="col-6 text-right">
+  <button  type="button" class="btn btn-success" (click)="open(complaintFormModal)" *ngIf="userRole !== 'admin'">Add Complaint</button>
+</div>
+</div>
+</div>
+<div class="container">
+
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Complaint</th>
+      <th>Status</th>
+      <th *ngIf="userRole === 'admin'"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let complaint of complaints">
+      <td>{{ complaint.id }}</td>
+      <td>{{ complaint.complaint }}</td>
+      <td>{{ complaint.status }}</td>
+      <td *ngIf="userRole === 'admin'"><button class="btn btn-info" (click)="onEdit(complaintFormModal,complaint.id)">Edit</button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- complain Form for edit/add  -->
+<ng-template #complaintFormModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Complaint Form</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="login-wrap">
+      <form [formGroup]="complainForm" (ngSubmit)="onSubmit()" >
+
+
+        <div class="form-group">
+          <label>Complaint</label>
+
+          <textarea [readonly]="userRole === 'admin'" class="form-control" formControlName="complaint"></textarea>
+
+
+          <div *ngIf="err?.complaint" class="alert alert-danger mt-3">
+            {{ err?.complaint }}
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="userRole !== 'customer'">
+          <label>Status</label>
+
+          <select class="form-control"  formControlName="status">
+            <option value="" disabled>Choose status</option>
+            <option *ngFor="let status of status" [ngValue]="status">{{status}}</option>
+         </select>
+          <div *ngIf="err?.status" class="alert alert-danger mt-3">
+            {{ err?.status }}
+          </div>
+        </div>
+
+        <button  type="submit" class="btn btn-success btn-block">Submit</button>
+      </form>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>
+
+
+
+
+
