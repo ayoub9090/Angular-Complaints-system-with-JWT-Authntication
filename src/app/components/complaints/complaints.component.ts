@@ -26,7 +26,7 @@ export class ComplaintsComponent implements OnInit {
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   status: any = ['pending', 'dismissed', 'resolved'];
-  statusDefault: string = 'Pending';
+  statusDefault: string = 'pending';
 
   constructor(
     public fb: FormBuilder,
